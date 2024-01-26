@@ -6,7 +6,6 @@ import pandas as pd
 from airflow import DAG
 from airflow.decorators import dag, task
 from airflow.models import Variable
-from airflow.providers.postgres.hooks.postgres import PostgresHook
 from botocore.client import Config
 from botocore import UNSIGNED
 import boto3
