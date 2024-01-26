@@ -16,7 +16,7 @@ logging.basicConfig(filename=log_file_path, level=logging.ERROR,
 
 # 2. DAG Definition
 @dag(
-    'tripdata_monthly_metrics',
+    'monthly_metrics',
     default_args={
         'owner': 'uchejudennodim@gmail.com',
         'depends_on_past': False,
@@ -31,7 +31,7 @@ logging.basicConfig(filename=log_file_path, level=logging.ERROR,
 
 def monthly_extraction_dag():
 
-    @task(task_id="connect_to_tripdata_database_and_extract_metrics")
+    @task(task_id="tripdata_monthly_metrics")
     def connect_to_tripdata_database():
         """
         Task to connect to TripData Database and extract metrics from the tripdata table.
@@ -58,8 +58,7 @@ def monthly_extraction_dag():
             # Your ClickHouse query or operation
             query = '''with 2014_01_01_to_2016_01_01 as 
                         (select pickup_date, pickup_datetime, dropoff_datetime, fare_amount 
-                        from tripdata 
-                        where pickup_date between '2014-01-01' and '2016-12-31')
+                        from default.tripdata where pickup_date between '2014-01-01' and '2016-12-31')
 
                         select DATE_FORMAT(pickup_date, '%Y-%m') AS year_month,
                         round(avg(case when DAYOFWEEK(pickup_date) = 7 THEN 1 ELSE 0 END),2) sat_mean_trip_count,
@@ -97,14 +96,14 @@ def monthly_extraction_dag():
         """
         try:
             # Connect to the SQLite database
-            sqlite_connection_string = Variable.get("sqlite_connection_string")
+            sqlite_connection_string = Variable.get("SQLITE_CONNECTION_STRING")
             logging.info(f"Connecting to SQLite database using connection string: {sqlite_connection_string}")
             sqlite_conn = sqlite3.connect(sqlite_connection_string)
             
 
             # Write metrics to SQLite database
             logging.info("Writing metrics to SQLite database.")
-            dataframe.to_sql('metrics_table', con=sqlite_conn, if_exists='replace', index=False)
+            dataframe.to_sql('tripdata_monthly_metrics', con=sqlite_conn, if_exists='replace', index=False)
 
             # Close the database connection
             sqlite_conn.close()
