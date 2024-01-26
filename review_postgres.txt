@@ -1,0 +1,7 @@
+# How to check tables in Docker postgres through CLI
+- Ensure you're in project directory and enter "docker exec -it IMAGE_NAME /bin/bash"
+- Type "psql -Upostgres"
+- Type \dt
+
+# Check status of container and images
+- 'docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"'

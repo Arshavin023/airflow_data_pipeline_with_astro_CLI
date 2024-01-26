@@ -1,0 +1,7 @@
+astronomer-cosmos[dbt.all]
+apache-airflow-providers-postgres==5.6.0
+pymysql
+pandas
+boto3
+sqlalchemy
+clickhouse_driver
