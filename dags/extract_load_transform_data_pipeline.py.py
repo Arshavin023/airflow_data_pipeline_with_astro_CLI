@@ -20,20 +20,20 @@ import traceback
 log_file_path = 'error_log.txt'
 logging.basicConfig(filename=log_file_path, level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def convert_to_str(value):
-    """
-    Convert the value to string, handling specific types to avoid errors.
-    """
-    if isinstance(value, (int, np.int64, np.int32, np.int16, np.int8)):
-        return str(value)
-    elif isinstance(value, (float, np.float64, np.float32)):
-        return str(value)
-    elif isinstance(value, (datetime, pd.Timestamp)):
-        return value.strftime('%Y-%m-%d %H:%M:%S')
-    elif isinstance(value, str):
-        return value
-    else:
-        return str(value)
+# def convert_to_str(value):
+#     """
+#     Convert the value to string, handling specific types to avoid errors.
+#     """
+#     if isinstance(value, (int, np.int64, np.int32, np.int16, np.int8)):
+#         return str(value)
+#     elif isinstance(value, (float, np.float64, np.float32)):
+#         return str(value)
+#     elif isinstance(value, (datetime, pd.Timestamp)):
+#         return value.strftime('%Y-%m-%d %H:%M:%S')
+#     elif isinstance(value, str):
+#         return value
+#     else:
+#         return str(value)
 
     
 

@@ -1,7 +1,8 @@
 # dags/jaffle_shop.py
-from cosmos.providers.dbt.dag import DbtDag
+from pendulum import datetime
+from airflow import DAG
+from cosmos.airflow.dag import DbtDag
 from airflow.datasets import Dataset
-from datetime import datetime
 
 jaffle_shop = DbtDag(
 		dag_id="jaffle_shop",

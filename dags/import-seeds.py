@@ -3,7 +3,7 @@ from airflow.datasets import Dataset
 from airflow.utils.task_group import TaskGroup
 from pendulum import datetime
 
-from cosmos.providers.dbt.core.operators import (
+from cosmos.operators import (
     DbtDepsOperator,
     DbtRunOperationOperator,
     DbtSeedOperator,
